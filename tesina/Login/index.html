@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firewall UAV - Monitor de Seguridad</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Firewall UAV - Monitor de Seguridad</h1>
+        <div class="controls">
+            <button id="scan-btn">Escanear Ahora</button>
+            <button id="toggle-firewall">Activar/Desactivar</button>
+            <button class="danger" id="emergency-btn">Modo Emergencia</button>
+        </div>
+    </header>
+    
+    <div class="dashboard">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-value" id="attacks-blocked">576</div>
+                <div class="stat-label">Ataques Bloqueados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="connections">42</div>
+                <div class="stat-label">Conexiones Activas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="uptime">99.9%</div>
+                <div class="stat-label">Disponibilidad</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="threat-level">Medio</div>
+                <div class="stat-label">Nivel de Amenaza</div>
+            </div>
+        </div>
+    </div>
+
+    <section id="status">
+        <h2>Estado del Firewall</h2>
+        <p id="firewall-status">Firewall activo y protegiendo</p>
+    </section>
+
+    <section id="traffic">
+        <h2>Análisis de Tráfico</h2>
+        <div class="chart-container">
+            <canvas id="trafficChart"></canvas>
+        </div>
+    </section>
+
+    <section id="threats">
+        <h2>Mapa de Amenazas</h2>
+        <div class="threat-map">
+            <div class="map-container"></div>
+            <!-- Los puntos de amenaza se generarán dinámicamente -->
+        </div>
+    </section>
+
+    <section id="logs">
+        <h2>Eventos de Seguridad</h2>
+        <ul id="log-list">
+            <li>
+                <span class="timestamp">15:32:45</span>
+                <span class="log-content">Conexión autorizada desde 192.168.1.5</span>
+                <div class="log-actions">
+                    <button class="log-action">🔍</button>
+                    <button class="log-action">🚫</button>
+                </div>
+            </li>
+            <li class="warning">
+                <span class="timestamp">15:30:12</span>
+                <span class="log-content">Intento de autenticación fallido desde 203.45.67.89</span>
+                <div class="log-actions">
+                    <button class="log-action">🔍</button>
+                    <button class="log-action">🚫</button>
+                </div>
+            </li>
+            <li class="danger">
+                <span class="timestamp">15:28:03</span>
+                <span class="log-content">Ataque de fuerza bruta detectado desde 78.34.21.90</span>
+                <div class="log-actions">
+                    <button class="log-action">🔍</button>
+                    <button class="log-action">🚫</button>
+                </div>
+            </li>
+            <li>
+                <span class="timestamp">15:25:18</span>
+                <span class="log-content">Actualización de reglas completada</span>
+                <div class="log-actions">
+                    <button class="log-action">🔍</button>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section id="settings">
+        <h2>Configuración</h2>
+        <div class="settings-form">
+            <div>
+                <div class="form-group">
+                    <label for="security-level">Nivel de Seguridad</label>
+                    <select id="security-level">
+                        <option value="low">Bajo</option>
+                        <option value="medium" selected>Medio</option>
+                        <option value="high">Alto</option>
+                        <option value="custom">Personalizado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="scan-frequency">Frecuencia de Escaneo</label>
+                    <select id="scan-frequency">
+                        <option value="5">Cada 5 minutos</option>
+                        <option value="15" selected>Cada 15 minutos</option>
+                        <option value="30">Cada 30 minutos</option>
+                        <option value="60">Cada hora</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label>Bloqueo Automático</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked id="auto-block">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Alertas en Tiempo Real</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked id="real-time-alerts">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="notifications" id="notifications">
+        <!-- Las notificaciones se generarán dinámicamente -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
