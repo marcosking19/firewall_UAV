@@ -130,16 +130,34 @@
             font-size: 0.8rem;
             color: #777;
         }
+        
+        .input-error {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+        
+        .input-error.visible {
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <a href="C:\AppServ\www\tesina\index.html" class="back-button">Volver al Inicio</a>
+    <!-- Redirección corregida usando ruta relativa -->
+    <a href="../index.html" class="back-button">Volver al Inicio</a>
     
     <div class="login-container">
         <div class="logo">DroneShield</div>
         <h2 class="login-title">Acceso al Sistema de Firewall</h2>
         
-        <form action="#" method="post">
+        <form action="#" method="post" id="loginForm">
+            <div class="form-group">
+                <label for="uav-id">ID UAV</label>
+                <input type="text" id="uav-id" name="uav-id" placeholder="Ingresa el ID del UAV (máx. 8 caracteres)" maxlength="8" pattern="[a-zA-Z0-9]+" required>
+                <p class="input-error" id="uav-id-error">El ID UAV debe contener solo caracteres alfanuméricos (máx. 8).</p>
+            </div>
+            
             <div class="form-group">
                 <label for="username">Nombre de Usuario</label>
                 <input type="text" id="username" name="username" placeholder="Ingresa tu nombre de usuario" required>
@@ -153,8 +171,8 @@
             <button type="submit" class="login-button">Iniciar Sesión</button>
             
             <div class="options">
-                <a href="#">¿Olvidaste tu contraseña?</a>
-                <a href="#">Crear una cuenta</a>
+                <a href="C:\AppServ\www\tesina\Login\password.html">¿Olvidaste tu contraseña?</a>
+                <a href="C:\AppServ\www\tesina\Login\create.html">Crear una cuenta</a>
             </div>
         </form>
         
@@ -162,5 +180,39 @@
             <p>Tu conexión es segura. Todas las transmisiones están encriptadas.</p>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uavIdInput = document.getElementById('uav-id');
+            const uavIdError = document.getElementById('uav-id-error');
+            const loginForm = document.getElementById('loginForm');
+            
+            // Validar el campo ID UAV cuando el usuario escribe
+            uavIdInput.addEventListener('input', function() {
+                const value = this.value;
+                const isValid = /^[a-zA-Z0-9]*$/.test(value);
+                
+                if (!isValid) {
+                    uavIdError.classList.add('visible');
+                    this.setCustomValidity('Solo se permiten caracteres alfanuméricos');
+                } else {
+                    uavIdError.classList.remove('visible');
+                    this.setCustomValidity('');
+                }
+            });
+            
+            // Validar el formulario antes de enviar
+            loginForm.addEventListener('submit', function(event) {
+                const uavId = uavIdInput.value;
+                const isValid = /^[a-zA-Z0-9]{1,8}$/.test(uavId);
+                
+                if (!isValid) {
+                    event.preventDefault();
+                    uavIdError.classList.add('visible');
+                    uavIdInput.focus();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
